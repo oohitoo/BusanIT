@@ -10,9 +10,8 @@
 	} else {
 		num = Integer.parseInt(request.getParameter("num"));
 	}
-%>
-<%
 	TeamBean bean = mgr.getTeam(num);
+	session.setAttribute("bean", bean);
 %>
 <link href="style.css" rel="stylesheet" type="text/css">
 <body>
@@ -45,5 +44,6 @@
 		<a href="teamInsert.html">INSERT</a>&nbsp;&nbsp;
 		<a href="teamDelete.jsp?num=<%=num%>">Delete</a>&nbsp;&nbsp;
 		<a href="teamUpdate.jsp?num=<%=num%>">Update</a>&nbsp;&nbsp;
+		<a href="teamUpdate2.jsp">Update2</a>&nbsp;&nbsp;
 	</div>
 </body>

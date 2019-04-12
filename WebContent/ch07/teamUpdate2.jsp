@@ -1,30 +1,15 @@
-<!-- teamUpdate.jsp -->
-<%@page import="ch07.TeamBean"%>
+<!-- teamUpdate2.jsp -->
 <%@ page contentType="text/html; charset=EUC-KR" %>
-<jsp:useBean id="mgr" class = "ch07.TeamMgr" />
-<%
-	request.setCharacterEncoding("EUC-KR");
-	int num = 0;
-	if(request.getParameter("num") != null){
-		num = Integer.parseInt(request.getParameter("num"));
-	}
-	else{
-		response.sendRedirect("teamList.jsp");
-	}
-	
-%>
-<%
-	TeamBean bean = mgr.getTeam(num);
-%>
+<jsp:useBean id="bean" scope="session" class= "ch07.TeamBean" />
 <link href="style.css" rel="stylesheet" type="text/css">
 <body>
 	<div align="center">
-		<h1>Team Update</h1>
+		<h1>Team Update2</h1>
 		<form method="post" action="teamUpdateProc.jsp">
 			<table border="1">
 				<tr>
 					<td width="50" align="center">번호</td>
-					<td width="150"><input name="num" readonly value="<%= num %>"></td>
+					<td width="150"><input name="num" readonly value="<%= bean.getNum() %>"></td>
 				</tr>
 				<tr>
 					<td align="center">이름</td>
@@ -49,6 +34,6 @@
 			</table>
 			<p />
 		</form>
-		<a href="teamSelect.jsp?num=<%= num %>">SELECT</a>
+		<a href="teamSelect.jsp?num=<%= bean.getNum() %>">SELECT</a>
 	</div>
 </body>

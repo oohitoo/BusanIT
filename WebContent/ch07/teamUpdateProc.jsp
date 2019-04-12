@@ -11,7 +11,7 @@
 	String location = "teamList.jsp";
 	if(result){
 		str = "수정성공";
-		location = "teamList.jsp";
+		location = "teamSelect.jsp?num=" + bean.getNum();
 	}
 %>
 <script>
