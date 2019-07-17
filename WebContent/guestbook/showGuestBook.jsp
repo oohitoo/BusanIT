@@ -44,7 +44,7 @@
 		<%@ include file="postGuestBook.jsp"%>
 		<%
 			GuestBookMgr mgr = new GuestBookMgr();
-				Vector<guestbookBean> vlist = mgr.listGuestBook(login.getId(), login.getGrade());
+			Vector<guestbookBean> vlist = mgr.listGuestBook(login.getId(), login.getGrade());
 		%>
 		<table width="520" cellspacing="0" cellpadding="3">
 			<tr bgcolor="#F5F5F5">

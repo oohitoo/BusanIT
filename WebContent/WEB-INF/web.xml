@@ -33,6 +33,14 @@
     <servlet-name>ExampleServelet02</servlet-name>
     <url-pattern>/ch03/exampleServelet02</url-pattern>
   </servlet-mapping>
+  
+  <jsp-config>
+  	<taglib>
+  		<taglib-uri>/Funcation.tld</taglib-uri>
+  		<taglib-location>/WEB-INF/tlds/Funcation.tld</taglib-location>
+  	</taglib>
+  </jsp-config>
+  
   <welcome-file-list>
     <welcome-file>welcome.jsp</welcome-file>
     <welcome-file>index.htm</welcome-file>

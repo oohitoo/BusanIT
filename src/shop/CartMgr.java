@@ -1,7 +1,5 @@
 package shop;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.util.Hashtable;
 
 public class CartMgr {
@@ -12,10 +10,12 @@ public class CartMgr {
 	// 새로운 장바구니
 	public void addCart(OrderBean order) {
 		int productNo = order.getProductNo();
+		System.out.println(productNo);
 		int quantity = order.getQuantity(); // 주문 수량
 		if(quantity > 0) {
 			//cart에 기존에 저장된 것이 있다면
 			if(hCart.containsKey(productNo)) {
+				System.out.println(productNo);
 				//기존에 저장된 주문 객체
 				OrderBean temp = hCart.get(productNo);
 				//새로운 주문의 수량 + 기존의 주문 수량

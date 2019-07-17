@@ -90,6 +90,7 @@ public class MemberMgr {
 			String hobby[] = bean.getHobby();
 			char hb[] = {'0','0','0','0','0'};
 			String lists[] = {"인터넷", "여행", "게임", "영화", "운동"}; 
+			if(hobby!=null) { //
 			for (int i = 0; i < hobby.length; i++) {
 				for (int j = 0; j < lists.length; j++) {
 					if(hobby[i].equals(lists[j])) {
@@ -99,6 +100,7 @@ public class MemberMgr {
 				}//---for2
 			}//---for1
 			//new String(char value[])
+			}
 			pstmt.setString(9, new String(hb));
 			///////////////////////////////////
 			pstmt.setString(10, bean.getJob());
@@ -207,16 +209,17 @@ public class MemberMgr {
 			String hobby[] = bean.getHobby();
 			char hb[] = {'0','0','0','0','0'};
 			String lists[] = {"인터넷", "여행", "게임", "영화", "운동"}; 
-			for (int i = 0; i < hobby.length; i++) {
-				for (int j = 0; j < lists.length; j++) {
-					if(hobby[i].equals(lists[j])) {
-						hb[j] = '1';
-						
-						break;
-					}//---if
-				}//---for2
-			}//---for1
-			
+			if(hobby!=null) {
+				for (int i = 0; i < hobby.length; i++) {
+					for (int j = 0; j < lists.length; j++) {
+						if(hobby[i].equals(lists[j])) {
+							hb[j] = '1';
+							
+							break;
+						}//---if
+					}//---for2
+				}//---for1
+			}
 			pstmt.setString(8, new String(hb));
 			///////////////////////////////////
 			pstmt.setString(9, bean.getJob());
@@ -229,6 +232,69 @@ public class MemberMgr {
 			pool.freeConnection(con, pstmt);
 		}
 		return flag;
+	}
+	
+	///admin mode/////////////
+	public Vector<MemberBean> getMemberList() {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		Vector<MemberBean> vlist = new Vector<>();
+		try {
+			con = pool.getConnection();
+			sql = "select * from tblMember";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				MemberBean bean = new MemberBean();
+				bean.setId(rs.getString("id"));
+				bean.setPwd(rs.getString("pwd"));
+				bean.setName(rs.getString("name"));
+				bean.setGender(rs.getString("gender"));
+				bean.setBirthday(rs.getString("birthday"));
+				bean.setEmail(rs.getString("email"));
+				vlist.addElement(bean);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con, pstmt, rs);
+		}
+		return vlist;
+	}
+	
+	//Admin Login
+	public boolean adminCheck(String admin_id, String admin_pwd) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = null;
+		boolean flag = false;
+		try {
+			con = pool.getConnection();
+			sql = "select admin_id, admin_pwd from tblAdmin where admin_id = ? and admin_pwd = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, admin_id);
+			pstmt.setString(2, admin_pwd);
+			rs = pstmt.executeQuery();
+			flag = rs.next();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			pool.freeConnection(con);
+		}
+		return flag;
+	}
+	//Send id, pwd
+	public void sendAccount(String id) {
+		MemberBean bean = getMember(id);
+		String pwd = bean.getPwd();
+		String title = "OOO.com에서 아이디와 비밀번호 전송합니다.";
+		String content = "id = "+ id + "/" + pwd;
+		String toEmail = bean.getEmail();
+		
+		Gmail_Mail.send(title, content, toEmail);
 	}
 }
 

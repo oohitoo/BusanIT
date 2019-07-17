@@ -70,7 +70,7 @@
 								<input type="button" value="삭제" size="3" onclick="javascript:cartDelete(this.form)">
 							</td>
 							<td>
-								<a href="productDetail('<%= productNo %>')">상세보기</a>
+								<a href="javascript:productDetail('<%= productNo %>')">상세보기</a>
 							</td>
 						</form>
 					</tr>

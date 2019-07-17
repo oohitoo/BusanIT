@@ -1,0 +1,17 @@
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" version="2.1">
+	<tlib-version>1.0</tlib-version>
+    <jsp-version>2.2</jsp-version>
+    <short-name>JSPTag</short-name>
+    <tag>
+	    <!-- 태그이름 -->
+    	<name>db</name>
+    	<!-- 클래스 명 잡아줘야함 -->
+    	<tag-class>ch15.ConnectionTag</tag-class>
+    	<body-content>empty</body-content>
+    	<tei-class>ch15.ConnectionTagTEI</tei-class>
+    	<attribute>
+	    	<name>id</name>
+	    	<required>true</required>
+    	</attribute>
+    </tag>
+</taglib>
